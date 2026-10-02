@@ -1,115 +1,38 @@
-/* =========================================================
-   Self-Healing Developer Agent
-   Main JavaScript
-   ========================================================= */
+/*
+============================================================
+SELF-HEALING DEVELOPER AGENT
+PHASE 9 DASHBOARD JAVASCRIPT
+============================================================
+*/
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    console.log("Self-Healing Developer Agent loaded.");
+    /*
+    --------------------------------------------------------
+    Prevent accidental double submission
+    --------------------------------------------------------
+    */
 
-    /* =====================================================
-       Confirmation for approval buttons
-       ===================================================== */
+    const forms = document.querySelectorAll("form");
 
-    const approvalButtons = document.querySelectorAll(
-        ".approve-fix"
-    );
-
-    approvalButtons.forEach(function (button) {
-
-        button.addEventListener("click", function (event) {
-
-            const confirmed = confirm(
-                "Are you sure you want to approve this AI-generated fix?"
-            );
-
-            if (!confirmed) {
-                event.preventDefault();
-            }
-
-        });
-
-    });
-
-
-    /* =====================================================
-       Confirmation for reject buttons
-       ===================================================== */
-
-    const rejectButtons = document.querySelectorAll(
-        ".reject-fix"
-    );
-
-    rejectButtons.forEach(function (button) {
-
-        button.addEventListener("click", function (event) {
-
-            const confirmed = confirm(
-                "Are you sure you want to reject this fix?"
-            );
-
-            if (!confirmed) {
-                event.preventDefault();
-            }
-
-        });
-
-    });
-
-
-    /* =====================================================
-       Show loading message when analyzing
-       ===================================================== */
-
-    const debugForms = document.querySelectorAll(
-        ".debug-form"
-    );
-
-    debugForms.forEach(function (form) {
+    forms.forEach(function (form) {
 
         form.addEventListener("submit", function () {
 
-            const loading = document.querySelector(".loading");
+            const submitButtons =
+                form.querySelectorAll(
+                    "button[type='submit'], input[type='submit']"
+                );
 
-            if (loading) {
-                loading.style.display = "block";
-            }
+            submitButtons.forEach(function (button) {
 
-        });
+                if (button.dataset.submitted === "true") {
+                    return;
+                }
 
-    });
+                button.dataset.submitted = "true";
 
-
-    /* =====================================================
-       Copy code button
-       ===================================================== */
-
-    const copyButtons = document.querySelectorAll(
-        ".copy-code"
-    );
-
-    copyButtons.forEach(function (button) {
-
-        button.addEventListener("click", function () {
-
-            const targetId = button.dataset.target;
-            const codeElement = document.getElementById(targetId);
-
-            if (!codeElement) {
-                return;
-            }
-
-            navigator.clipboard.writeText(
-                codeElement.innerText
-            ).then(function () {
-
-                const originalText = button.innerText;
-
-                button.innerText = "Copied!";
-
-                setTimeout(function () {
-                    button.innerText = originalText;
-                }, 1500);
+                button.disabled = true;
 
             });
 
@@ -118,25 +41,61 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
-    /* =====================================================
-       Auto-hide alerts
-       ===================================================== */
+    /*
+    --------------------------------------------------------
+    Auto-hide messages
+    --------------------------------------------------------
+    */
 
-    const alerts = document.querySelectorAll(
-        ".alert-auto-hide"
-    );
+    const messages =
+        document.querySelectorAll(".message");
 
-    alerts.forEach(function (alert) {
+    messages.forEach(function (message) {
 
         setTimeout(function () {
 
-            alert.style.opacity = "0";
+            message.style.transition =
+                "opacity 0.4s ease";
+
+            message.style.opacity = "0";
 
             setTimeout(function () {
-                alert.remove();
-            }, 500);
+
+                message.remove();
+
+            }, 400);
 
         }, 5000);
+
+    });
+
+
+    /*
+    --------------------------------------------------------
+    Confirm dangerous actions
+    --------------------------------------------------------
+    */
+
+    const dangerousButtons =
+        document.querySelectorAll(
+            "[data-confirm]"
+        );
+
+    dangerousButtons.forEach(function (button) {
+
+        button.addEventListener("click", function (event) {
+
+            const message =
+                button.dataset.confirm;
+
+            if (
+                message &&
+                !window.confirm(message)
+            ) {
+                event.preventDefault();
+            }
+
+        });
 
     });
 

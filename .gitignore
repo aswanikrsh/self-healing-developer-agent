@@ -1,21 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
 venv/
 .venv/
 env/
+ENV/
 
-__pycache__/
-*.py[cod]
+# Django
+db.sqlite3
+media/
+staticfiles/
 
+# Environment variables / secrets
+.env
+.env.*
+
+# IDE
+.vscode/
+.idea/
+
+# Test / cache
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.coverage
+htmlcov/
 
-.env
-
+# ChromaDB / local memory
 memory_data/
 
-media/
+# Local workspace
+workspace/
 
-*.sqlite3
-
-.idea/
-.vscode/
+# OS
+.DS_Store
+Thumbs.db

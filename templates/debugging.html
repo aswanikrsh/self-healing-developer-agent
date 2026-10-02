@@ -1,30 +1,1191 @@
+```html
 {% extends "base.html" %}
 
 {% block content %}
 
-<div class="card">
+<div class="debug-page">
 
-    <h1>Debug Project</h1>
+    <div class="debug-container">
 
-    <h2>{{ project.name }}</h2>
+        <!-- Header -->
+        <div class="debug-header">
 
-    <p>
-        Project:
-        {{ project.project_path }}
-    </p>
+            <div class="header-icon">
+                ⚙
+            </div>
 
-    <form method="post">
+            <div>
 
-        {% csrf_token %}
+                <div class="breadcrumb">
+                    Developer Agent
+                    <span>/</span>
+                    Debug Project
+                </div>
 
-        {{ form.as_p }}
+                <h1>Debug Project</h1>
 
-        <button type="submit">
-            Analyze Error
-        </button>
+                <p>
+                    Submit an error or traceback and let the
+                    Self-Healing Developer Agent analyze the problem.
+                </p>
 
-    </form>
+            </div>
+
+        </div>
+
+
+        <!-- Project Information -->
+        <div class="project-info-card">
+
+            <div class="project-info-left">
+
+                <div class="project-icon">
+                    P
+                </div>
+
+                <div>
+
+                    <span class="label">
+                        PROJECT
+                    </span>
+
+                    <h2>
+                        {{ project.name }}
+                    </h2>
+
+                    <div class="project-path">
+
+                        <span class="path-icon">
+                            📁
+                        </span>
+
+                        <span>
+                            {{ project.project_path }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="status-badge">
+
+                <span class="status-dot"></span>
+
+                Ready for Analysis
+
+            </div>
+
+        </div>
+
+
+        <!-- Main Debug Card -->
+        <div class="debug-card">
+
+            <div class="card-heading">
+
+                <div class="heading-icon">
+                    ⚡
+                </div>
+
+                <div>
+
+                    <h2>
+                        Submit Error
+                    </h2>
+
+                    <p>
+                        Paste the Python error or complete traceback
+                        that you want the agent to investigate.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form method="post">
+
+                {% csrf_token %}
+
+
+                <div class="error-input-section">
+
+                    <div class="input-label-row">
+
+                        <label>
+                            Error / Traceback
+                        </label>
+
+                        <span>
+                            Required
+                        </span>
+
+                    </div>
+
+
+                    {{ form.as_p }}
+
+
+                    <div class="input-help">
+
+                        <span class="help-icon">
+                            i
+                        </span>
+
+                        <span>
+                            For the best analysis, provide the complete
+                            traceback including the file name, line number,
+                            exception type and error message.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Analysis Pipeline -->
+                <div class="pipeline">
+
+                    <div class="pipeline-title">
+                        <span>What happens next?</span>
+                    </div>
+
+
+                    <div class="pipeline-steps">
+
+                        <div class="pipeline-step">
+
+                            <div class="step-number">
+                                1
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Analyze
+                                </strong>
+
+                                <p>
+                                    Inspect the project and identify
+                                    the root cause.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="pipeline-line"></div>
+
+
+                        <div class="pipeline-step">
+
+                            <div class="step-number">
+                                2
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Plan Fix
+                                </strong>
+
+                                <p>
+                                    Generate a structured and
+                                    reviewable patch.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="pipeline-line"></div>
+
+
+                        <div class="pipeline-step">
+
+                            <div class="step-number">
+                                3
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    Validate
+                                </strong>
+
+                                <p>
+                                    Review the patch and run
+                                    automated tests.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Actions -->
+                <div class="form-actions">
+
+                    <a
+                        href="{% url 'dashboard' %}"
+                        class="cancel-button"
+                    >
+                        Back to Dashboard
+                    </a>
+
+
+                    <button
+                        type="submit"
+                        class="analyze-button"
+                    >
+
+                        <span class="button-icon">
+                            ⚡
+                        </span>
+
+                        Analyze Error
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- Safety Notice -->
+        <div class="security-notice">
+
+            <div class="security-icon">
+                🛡
+            </div>
+
+            <div>
+
+                <strong>
+                    Protected Repair Workflow
+                </strong>
+
+                <p>
+                    Proposed code changes are reviewed before they are
+                    applied. Git checkpoints and automated validation
+                    help protect the original project.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
+
+<style>
+
+    /* =========================================================
+       PAGE
+    ========================================================= */
+
+    .debug-page {
+
+        min-height: calc(100vh - 80px);
+
+        padding: 45px 25px;
+
+        background:
+            radial-gradient(
+                circle at top left,
+                rgba(99, 102, 241, 0.10),
+                transparent 32%
+            ),
+            #f8fafc;
+    }
+
+
+    .debug-container {
+
+        width: 100%;
+
+        max-width: 950px;
+
+        margin: 0 auto;
+    }
+
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+
+    .debug-header {
+
+        display: flex;
+
+        align-items: flex-start;
+
+        gap: 18px;
+
+        margin-bottom: 28px;
+    }
+
+
+    .header-icon {
+
+        width: 58px;
+
+        height: 58px;
+
+        flex-shrink: 0;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border-radius: 16px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #4f46e5,
+                #7c3aed
+            );
+
+        color: white;
+
+        font-size: 25px;
+
+        box-shadow:
+            0 10px 25px rgba(79, 70, 229, 0.25);
+    }
+
+
+    .breadcrumb {
+
+        margin-bottom: 5px;
+
+        color: #9ca3af;
+
+        font-size: 12px;
+
+        font-weight: 500;
+    }
+
+
+    .breadcrumb span {
+
+        margin: 0 5px;
+
+        color: #d1d5db;
+    }
+
+
+    .debug-header h1 {
+
+        margin: 0 0 5px;
+
+        color: #111827;
+
+        font-size: 30px;
+
+        font-weight: 700;
+
+        letter-spacing: -0.5px;
+    }
+
+
+    .debug-header p {
+
+        margin: 0;
+
+        color: #6b7280;
+
+        font-size: 14px;
+
+        line-height: 1.6;
+    }
+
+
+    /* =========================================================
+       PROJECT INFORMATION
+    ========================================================= */
+
+    .project-info-card {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        gap: 20px;
+
+        padding: 20px 22px;
+
+        margin-bottom: 18px;
+
+        background: white;
+
+        border: 1px solid #e5e7eb;
+
+        border-radius: 16px;
+
+        box-shadow:
+            0 6px 20px rgba(15, 23, 42, 0.04);
+    }
+
+
+    .project-info-left {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 14px;
+
+        min-width: 0;
+    }
+
+
+    .project-icon {
+
+        width: 45px;
+
+        height: 45px;
+
+        flex-shrink: 0;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border-radius: 12px;
+
+        background: #eef2ff;
+
+        color: #4f46e5;
+
+        font-weight: 700;
+
+        font-size: 18px;
+    }
+
+
+    .label {
+
+        display: block;
+
+        margin-bottom: 3px;
+
+        color: #9ca3af;
+
+        font-size: 10px;
+
+        font-weight: 700;
+
+        letter-spacing: 1px;
+    }
+
+
+    .project-info-card h2 {
+
+        margin: 0 0 6px;
+
+        color: #111827;
+
+        font-size: 17px;
+
+        font-weight: 650;
+    }
+
+
+    .project-path {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 6px;
+
+        max-width: 650px;
+
+        color: #6b7280;
+
+        font-size: 12px;
+
+        overflow: hidden;
+    }
+
+
+    .project-path span:last-child {
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+    }
+
+
+    .path-icon {
+
+        flex-shrink: 0;
+
+        font-size: 12px;
+    }
+
+
+    .status-badge {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 7px;
+
+        flex-shrink: 0;
+
+        padding: 7px 11px;
+
+        border-radius: 20px;
+
+        background: #ecfdf5;
+
+        border: 1px solid #d1fae5;
+
+        color: #047857;
+
+        font-size: 12px;
+
+        font-weight: 600;
+    }
+
+
+    .status-dot {
+
+        width: 7px;
+
+        height: 7px;
+
+        border-radius: 50%;
+
+        background: #10b981;
+    }
+
+
+    /* =========================================================
+       MAIN CARD
+    ========================================================= */
+
+    .debug-card {
+
+        background: white;
+
+        border: 1px solid #e5e7eb;
+
+        border-radius: 18px;
+
+        padding: 30px;
+
+        box-shadow:
+            0 10px 30px rgba(15, 23, 42, 0.06);
+    }
+
+
+    /* =========================================================
+       CARD HEADER
+    ========================================================= */
+
+    .card-heading {
+
+        display: flex;
+
+        align-items: flex-start;
+
+        gap: 13px;
+
+        padding-bottom: 22px;
+
+        margin-bottom: 25px;
+
+        border-bottom: 1px solid #eef0f3;
+    }
+
+
+    .heading-icon {
+
+        width: 38px;
+
+        height: 38px;
+
+        flex-shrink: 0;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border-radius: 10px;
+
+        background: #f5f3ff;
+
+        color: #6366f1;
+
+        font-size: 17px;
+    }
+
+
+    .card-heading h2 {
+
+        margin: 0 0 4px;
+
+        color: #111827;
+
+        font-size: 19px;
+
+        font-weight: 650;
+    }
+
+
+    .card-heading p {
+
+        margin: 0;
+
+        color: #6b7280;
+
+        font-size: 13px;
+
+        line-height: 1.5;
+    }
+
+
+    /* =========================================================
+       ERROR FORM
+    ========================================================= */
+
+    .error-input-section {
+
+        margin-bottom: 25px;
+    }
+
+
+    .input-label-row {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        margin-bottom: 8px;
+    }
+
+
+    .input-label-row label {
+
+        color: #374151;
+
+        font-size: 14px;
+
+        font-weight: 600;
+    }
+
+
+    .input-label-row span {
+
+        padding: 3px 7px;
+
+        border-radius: 5px;
+
+        background: #fef2f2;
+
+        color: #dc2626;
+
+        font-size: 10px;
+
+        font-weight: 600;
+
+        text-transform: uppercase;
+    }
+
+
+    .error-input-section p {
+
+        margin: 0 0 15px;
+    }
+
+
+    .error-input-section textarea {
+
+        width: 100%;
+
+        min-height: 230px;
+
+        box-sizing: border-box;
+
+        padding: 16px;
+
+        resize: vertical;
+
+        border: 1px solid #d1d5db;
+
+        border-radius: 11px;
+
+        background: #111827;
+
+        color: #e5e7eb;
+
+        font-family:
+            "Cascadia Code",
+            "Consolas",
+            "Monaco",
+            monospace;
+
+        font-size: 13px;
+
+        line-height: 1.6;
+
+        outline: none;
+
+        transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+
+    .error-input-section textarea:focus {
+
+        border-color: #6366f1;
+
+        box-shadow:
+            0 0 0 3px rgba(99, 102, 241, 0.12);
+    }
+
+
+    .input-help {
+
+        display: flex;
+
+        align-items: flex-start;
+
+        gap: 8px;
+
+        margin-top: 9px;
+
+        color: #6b7280;
+
+        font-size: 12px;
+
+        line-height: 1.5;
+    }
+
+
+    .help-icon {
+
+        width: 18px;
+
+        height: 18px;
+
+        flex-shrink: 0;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border-radius: 50%;
+
+        background: #eef2ff;
+
+        color: #6366f1;
+
+        font-size: 11px;
+
+        font-weight: 700;
+    }
+
+
+    /* =========================================================
+       PIPELINE
+    ========================================================= */
+
+    .pipeline {
+
+        padding: 20px;
+
+        margin-top: 10px;
+
+        border-radius: 13px;
+
+        background: #f8fafc;
+
+        border: 1px solid #eef0f3;
+    }
+
+
+    .pipeline-title {
+
+        margin-bottom: 18px;
+
+        color: #374151;
+
+        font-size: 12px;
+
+        font-weight: 700;
+
+        text-transform: uppercase;
+
+        letter-spacing: 0.5px;
+    }
+
+
+    .pipeline-steps {
+
+        display: flex;
+
+        align-items: flex-start;
+    }
+
+
+    .pipeline-step {
+
+        display: flex;
+
+        align-items: flex-start;
+
+        gap: 9px;
+
+        flex: 1;
+
+        min-width: 0;
+    }
+
+
+    .step-number {
+
+        width: 27px;
+
+        height: 27px;
+
+        flex-shrink: 0;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border-radius: 50%;
+
+        background: #eef2ff;
+
+        color: #4f46e5;
+
+        font-size: 11px;
+
+        font-weight: 700;
+    }
+
+
+    .pipeline-step strong {
+
+        display: block;
+
+        margin-bottom: 3px;
+
+        color: #374151;
+
+        font-size: 12px;
+    }
+
+
+    .pipeline-step p {
+
+        margin: 0;
+
+        color: #9ca3af;
+
+        font-size: 11px;
+
+        line-height: 1.4;
+    }
+
+
+    .pipeline-line {
+
+        width: 35px;
+
+        height: 1px;
+
+        margin: 13px 8px 0;
+
+        background: #d1d5db;
+
+        flex-shrink: 0;
+    }
+
+
+    /* =========================================================
+       ACTIONS
+    ========================================================= */
+
+    .form-actions {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        gap: 12px;
+
+        margin-top: 28px;
+
+        padding-top: 22px;
+
+        border-top: 1px solid #eef0f3;
+    }
+
+
+    .cancel-button {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        padding: 11px 18px;
+
+        border: 1px solid #d1d5db;
+
+        border-radius: 9px;
+
+        background: white;
+
+        color: #374151;
+
+        text-decoration: none;
+
+        font-size: 13px;
+
+        font-weight: 600;
+
+        transition: all 0.2s ease;
+    }
+
+
+    .cancel-button:hover {
+
+        background: #f9fafb;
+
+        border-color: #9ca3af;
+    }
+
+
+    .analyze-button {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        gap: 8px;
+
+        padding: 11px 22px;
+
+        border: none;
+
+        border-radius: 9px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #4f46e5,
+                #6366f1
+            );
+
+        color: white;
+
+        font-size: 13px;
+
+        font-weight: 600;
+
+        cursor: pointer;
+
+        box-shadow:
+            0 6px 15px rgba(79, 70, 229, 0.20);
+
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+
+    .analyze-button:hover {
+
+        transform: translateY(-1px);
+
+        box-shadow:
+            0 8px 20px rgba(79, 70, 229, 0.28);
+    }
+
+
+    .button-icon {
+
+        font-size: 14px;
+    }
+
+
+    /* =========================================================
+       SECURITY NOTICE
+    ========================================================= */
+
+    .security-notice {
+
+        display: flex;
+
+        align-items: flex-start;
+
+        gap: 12px;
+
+        margin-top: 18px;
+
+        padding: 15px 17px;
+
+        border: 1px solid #dbeafe;
+
+        border-radius: 12px;
+
+        background: #eff6ff;
+    }
+
+
+    .security-icon {
+
+        flex-shrink: 0;
+
+        font-size: 18px;
+    }
+
+
+    .security-notice strong {
+
+        display: block;
+
+        margin-bottom: 3px;
+
+        color: #1e40af;
+
+        font-size: 12px;
+    }
+
+
+    .security-notice p {
+
+        margin: 0;
+
+        color: #3b82f6;
+
+        font-size: 12px;
+
+        line-height: 1.5;
+    }
+
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    @media (max-width: 750px) {
+
+        .debug-page {
+
+            padding: 30px 15px;
+        }
+
+
+        .debug-header h1 {
+
+            font-size: 25px;
+        }
+
+
+        .project-info-card {
+
+            align-items: flex-start;
+
+            flex-direction: column;
+        }
+
+
+        .status-badge {
+
+            align-self: flex-start;
+        }
+
+
+        .debug-card {
+
+            padding: 22px;
+        }
+
+
+        .pipeline-steps {
+
+            flex-direction: column;
+
+            gap: 15px;
+        }
+
+
+        .pipeline-step {
+
+            width: 100%;
+        }
+
+
+        .pipeline-line {
+
+            display: none;
+        }
+
+
+        .form-actions {
+
+            flex-direction: column-reverse;
+
+            align-items: stretch;
+        }
+
+
+        .cancel-button,
+        .analyze-button {
+
+            width: 100%;
+        }
+
+    }
+
+
+</style>
+
 {% endblock %}
+```
+

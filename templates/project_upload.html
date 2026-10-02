@@ -1,25 +1,647 @@
+```html
 {% extends "base.html" %}
 
 {% block content %}
 
-<div class="card">
+<div class="project-page">
 
-    <h1>Self-Healing Developer Agent</h1>
+    <div class="project-container">
 
-    <h2>Add Project</h2>
+        <!-- Header -->
+        <div class="project-header">
 
-    <form method="post">
+            <div class="header-icon">
+                <span>+</span>
+            </div>
 
-        {% csrf_token %}
+            <div>
+                <h1>Add New Project</h1>
+                <p>
+                    Connect a Python project to the Self-Healing Developer Agent
+                    and start automated debugging.
+                </p>
+            </div>
 
-        {{ form.as_p }}
+        </div>
 
-        <button type="submit">
-            Add Project
-        </button>
 
-    </form>
+        <!-- Project Form Card -->
+        <div class="project-card">
+
+            <div class="card-heading">
+                <h2>Project Details</h2>
+                <p>
+                    Enter the basic information about the project you want
+                    the agent to analyze.
+                </p>
+            </div>
+
+
+            <form method="post">
+
+                {% csrf_token %}
+
+                <div class="form-section">
+
+                    {{ form.as_p }}
+
+                </div>
+
+
+                <!-- Information Box -->
+                <div class="info-box">
+
+                    <div class="info-icon">
+                        i
+                    </div>
+
+                    <div>
+                        <strong>Before you continue</strong>
+
+                        <p>
+                            Make sure the project path exists and the agent
+                            has permission to access the project files.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <!-- Actions -->
+                <div class="form-actions">
+
+                    <a href="{% url 'dashboard' %}" class="cancel-button">
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="submit-button">
+                        <span>+</span>
+                        Add Project
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- Feature Cards -->
+        <div class="feature-grid">
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🔍
+                </div>
+
+                <h3>Analyze</h3>
+
+                <p>
+                    Inspect project structure, source files and errors.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🛡️
+                </div>
+
+                <h3>Secure</h3>
+
+                <p>
+                    Review proposed patches before making changes.
+                </p>
+
+            </div>
+
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🧪
+                </div>
+
+                <h3>Validate</h3>
+
+                <p>
+                    Run automated tests in the isolated execution environment.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
+
+<style>
+
+    .project-page {
+        min-height: calc(100vh - 80px);
+        padding: 50px 25px;
+        background:
+            radial-gradient(
+                circle at top left,
+                rgba(99, 102, 241, 0.10),
+                transparent 35%
+            ),
+            #f8fafc;
+    }
+
+
+    .project-container {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+
+    /* Header */
+
+    .project-header {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-bottom: 30px;
+    }
+
+
+    .header-icon {
+        width: 58px;
+        height: 58px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 16px;
+
+        background: linear-gradient(
+            135deg,
+            #4f46e5,
+            #7c3aed
+        );
+
+        color: white;
+
+        font-size: 30px;
+        font-weight: 500;
+
+        box-shadow:
+            0 10px 25px rgba(79, 70, 229, 0.25);
+    }
+
+
+    .project-header h1 {
+        margin: 0 0 5px;
+
+        font-size: 30px;
+        font-weight: 700;
+
+        color: #111827;
+        letter-spacing: -0.5px;
+    }
+
+
+    .project-header p {
+        margin: 0;
+
+        color: #6b7280;
+
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+
+    /* Main Card */
+
+    .project-card {
+
+        background: white;
+
+        border: 1px solid #e5e7eb;
+
+        border-radius: 18px;
+
+        padding: 32px;
+
+        box-shadow:
+            0 10px 30px rgba(15, 23, 42, 0.06);
+    }
+
+
+    .card-heading {
+        margin-bottom: 28px;
+
+        padding-bottom: 20px;
+
+        border-bottom: 1px solid #eef0f3;
+    }
+
+
+    .card-heading h2 {
+        margin: 0 0 6px;
+
+        font-size: 20px;
+        font-weight: 650;
+
+        color: #111827;
+    }
+
+
+    .card-heading p {
+        margin: 0;
+
+        color: #6b7280;
+
+        font-size: 14px;
+    }
+
+
+    /* Django Form */
+
+    .form-section p {
+        margin-bottom: 20px;
+    }
+
+
+    .form-section label {
+        display: block;
+
+        margin-bottom: 8px;
+
+        font-size: 14px;
+        font-weight: 600;
+
+        color: #374151;
+    }
+
+
+    .form-section input,
+    .form-section textarea,
+    .form-section select {
+
+        width: 100%;
+
+        box-sizing: border-box;
+
+        padding: 13px 15px;
+
+        border: 1px solid #d1d5db;
+
+        border-radius: 10px;
+
+        background: #ffffff;
+
+        color: #111827;
+
+        font-size: 14px;
+
+        outline: none;
+
+        transition:
+            border-color 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+
+    .form-section input:focus,
+    .form-section textarea:focus,
+    .form-section select:focus {
+
+        border-color: #6366f1;
+
+        box-shadow:
+            0 0 0 3px rgba(99, 102, 241, 0.12);
+    }
+
+
+    .form-section textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+
+    .form-section .helptext {
+
+        display: block;
+
+        margin-top: 6px;
+
+        color: #9ca3af;
+
+        font-size: 12px;
+    }
+
+
+    .form-section ul.errorlist {
+
+        margin: 6px 0;
+
+        padding: 0;
+
+        list-style: none;
+
+        color: #dc2626;
+
+        font-size: 13px;
+    }
+
+
+    /* Information Box */
+
+    .info-box {
+
+        display: flex;
+
+        gap: 12px;
+
+        margin-top: 25px;
+
+        padding: 15px 16px;
+
+        border-radius: 12px;
+
+        background: #f5f7ff;
+
+        border: 1px solid #e0e7ff;
+    }
+
+
+    .info-icon {
+
+        flex-shrink: 0;
+
+        width: 24px;
+        height: 24px;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+
+        background: #6366f1;
+
+        color: white;
+
+        font-size: 13px;
+
+        font-weight: 700;
+    }
+
+
+    .info-box strong {
+
+        display: block;
+
+        margin-bottom: 3px;
+
+        color: #3730a3;
+
+        font-size: 13px;
+    }
+
+
+    .info-box p {
+
+        margin: 0;
+
+        color: #6366f1;
+
+        font-size: 13px;
+
+        line-height: 1.5;
+    }
+
+
+    /* Buttons */
+
+    .form-actions {
+
+        display: flex;
+
+        justify-content: flex-end;
+
+        align-items: center;
+
+        gap: 12px;
+
+        margin-top: 30px;
+
+        padding-top: 22px;
+
+        border-top: 1px solid #eef0f3;
+    }
+
+
+    .cancel-button {
+
+        display: inline-flex;
+
+        align-items: center;
+        justify-content: center;
+
+        padding: 11px 20px;
+
+        border-radius: 9px;
+
+        border: 1px solid #d1d5db;
+
+        background: white;
+
+        color: #374151;
+
+        text-decoration: none;
+
+        font-size: 14px;
+        font-weight: 600;
+
+        transition: all 0.2s ease;
+    }
+
+
+    .cancel-button:hover {
+
+        background: #f9fafb;
+
+        border-color: #9ca3af;
+    }
+
+
+    .submit-button {
+
+        display: inline-flex;
+
+        align-items: center;
+        justify-content: center;
+
+        gap: 8px;
+
+        padding: 11px 22px;
+
+        border: none;
+
+        border-radius: 9px;
+
+        background: linear-gradient(
+            135deg,
+            #4f46e5,
+            #6366f1
+        );
+
+        color: white;
+
+        font-size: 14px;
+        font-weight: 600;
+
+        cursor: pointer;
+
+        box-shadow:
+            0 6px 15px rgba(79, 70, 229, 0.20);
+
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+
+    .submit-button:hover {
+
+        transform: translateY(-1px);
+
+        box-shadow:
+            0 8px 20px rgba(79, 70, 229, 0.28);
+    }
+
+
+    .submit-button span {
+
+        font-size: 18px;
+        line-height: 1;
+    }
+
+
+    /* Feature Cards */
+
+    .feature-grid {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 16px;
+
+        margin-top: 20px;
+    }
+
+
+    .feature-card {
+
+        padding: 20px;
+
+        background: white;
+
+        border: 1px solid #e5e7eb;
+
+        border-radius: 14px;
+
+        transition:
+            transform 0.2s ease,
+            box-shadow 0.2s ease;
+    }
+
+
+    .feature-card:hover {
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 8px 20px rgba(15, 23, 42, 0.06);
+    }
+
+
+    .feature-icon {
+
+        font-size: 22px;
+
+        margin-bottom: 10px;
+    }
+
+
+    .feature-card h3 {
+
+        margin: 0 0 6px;
+
+        font-size: 15px;
+
+        color: #111827;
+    }
+
+
+    .feature-card p {
+
+        margin: 0;
+
+        color: #6b7280;
+
+        font-size: 13px;
+
+        line-height: 1.5;
+    }
+
+
+    /* Responsive */
+
+    @media (max-width: 700px) {
+
+        .project-page {
+            padding: 30px 15px;
+        }
+
+
+        .project-header {
+            align-items: flex-start;
+        }
+
+
+        .project-header h1 {
+            font-size: 24px;
+        }
+
+
+        .project-card {
+            padding: 22px;
+        }
+
+
+        .feature-grid {
+            grid-template-columns: 1fr;
+        }
+
+
+        .form-actions {
+            flex-direction: column-reverse;
+            align-items: stretch;
+        }
+
+
+        .cancel-button,
+        .submit-button {
+            width: 100%;
+        }
+
+    }
+
+</style>
+
 {% endblock %}
+```

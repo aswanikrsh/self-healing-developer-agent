@@ -4,13 +4,15 @@ from django.shortcuts import redirect
 
 
 def home(request):
-    return redirect("project_create")
+    return redirect("dashboard")
 
 
 urlpatterns = [
     path("admin/", admin.site.urls),
 
+    # Root URL
     path("", home, name="home"),
 
-    path("", include("projects.urls")),
+    # Projects application
+    path("projects/", include("projects.urls")),
 ]

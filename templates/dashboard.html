@@ -1,0 +1,399 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Dashboard | Self-Healing Developer Agent
+{% endblock %}
+
+{% block page_title %}
+    Developer Dashboard
+{% endblock %}
+
+{% block content %}
+
+<div class="dashboard-page">
+
+
+    <!-- =====================================================
+         HERO
+         ===================================================== -->
+
+    <section class="dashboard-hero">
+
+        <div>
+
+            <div class="eyebrow">
+                AI-POWERED SOFTWARE REPAIR
+            </div>
+
+            <h2>
+                Diagnose. Repair. Validate.
+            </h2>
+
+            <p>
+                Analyze software errors, generate safe fixes,
+                review patches, run tests in a Docker sandbox,
+                and validate repairs automatically.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'project_create' %}"
+            class="btn btn-primary"
+        >
+            + Start Debugging
+        </a>
+
+    </section>
+
+
+    <!-- =====================================================
+         SYSTEM OVERVIEW
+         ===================================================== -->
+
+    <section class="stats-grid">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                P
+            </div>
+
+            <div>
+
+                <span class="stat-label">
+                    Projects
+                </span>
+
+                <strong class="stat-value">
+                    {{ projects|length }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                AI
+            </div>
+
+            <div>
+
+                <span class="stat-label">
+                    Agent
+                </span>
+
+                <strong class="stat-value">
+                    Ready
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                D
+            </div>
+
+            <div>
+
+                <span class="stat-label">
+                    Execution
+                </span>
+
+                <strong class="stat-value">
+                    Docker
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                M
+            </div>
+
+            <div>
+
+                <span class="stat-label">
+                    Memory
+                </span>
+
+                <strong class="stat-value">
+                    ChromaDB
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PROJECTS
+         ===================================================== -->
+
+    <section class="dashboard-section">
+
+        <div class="section-header">
+
+            <div>
+
+                <span class="section-kicker">
+                    WORKSPACE
+                </span>
+
+                <h3>
+                    Your Projects
+                </h3>
+
+            </div>
+
+
+            <a
+                href="{% url 'project_create' %}"
+                class="btn btn-secondary"
+            >
+                New Project
+            </a>
+
+        </div>
+
+
+        {% if projects %}
+
+            <div class="project-grid">
+
+                {% for project in projects %}
+
+                    <article class="project-card">
+
+                        <div class="project-card-top">
+
+                            <div class="project-icon">
+                                PY
+                            </div>
+
+                            <span class="project-status">
+                                Active
+                            </span>
+
+                        </div>
+
+
+                        <h4>
+                            {{ project.name }}
+                        </h4>
+
+
+                        <p class="project-path">
+                            {{ project.project_path }}
+                        </p>
+
+
+                        <div class="project-card-footer">
+
+                            <span>
+                                Created
+                                {{ project.created_at|date:"d M Y" }}
+                            </span>
+
+
+                            <a
+                                href="{% url 'debug_project' project.id %}"
+                                class="text-link"
+                            >
+                                Debug →
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    +
+                </div>
+
+                <h3>
+                    No projects yet
+                </h3>
+
+                <p>
+                    Add a Python project to begin
+                    automated debugging and repair.
+                </p>
+
+                <a
+                    href="{% url 'project_create' %}"
+                    class="btn btn-primary"
+                >
+                    Create Your First Project
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- =====================================================
+         PIPELINE
+         ===================================================== -->
+
+    <section class="dashboard-section">
+
+        <div class="section-header">
+
+            <div>
+
+                <span class="section-kicker">
+                    AGENT PIPELINE
+                </span>
+
+                <h3>
+                    Self-Healing Workflow
+                </h3>
+
+            </div>
+
+        </div>
+
+
+        <div class="pipeline">
+
+
+            <div class="pipeline-step">
+
+                <div class="pipeline-number">
+                    01
+                </div>
+
+                <div>
+                    <strong>
+                        Analyze
+                    </strong>
+
+                    <span>
+                        Project + error analysis
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="pipeline-line"></div>
+
+
+            <div class="pipeline-step">
+
+                <div class="pipeline-number">
+                    02
+                </div>
+
+                <div>
+                    <strong>
+                        Plan
+                    </strong>
+
+                    <span>
+                        Root cause + fix
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="pipeline-line"></div>
+
+
+            <div class="pipeline-step">
+
+                <div class="pipeline-number">
+                    03
+                </div>
+
+                <div>
+                    <strong>
+                        Review
+                    </strong>
+
+                    <span>
+                        Security + approval
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="pipeline-line"></div>
+
+
+            <div class="pipeline-step">
+
+                <div class="pipeline-number">
+                    04
+                </div>
+
+                <div>
+                    <strong>
+                        Validate
+                    </strong>
+
+                    <span>
+                        Docker + tests
+                    </span>
+                </div>
+
+            </div>
+
+
+            <div class="pipeline-line"></div>
+
+
+            <div class="pipeline-step">
+
+                <div class="pipeline-number">
+                    05
+                </div>
+
+                <div>
+                    <strong>
+                        Learn
+                    </strong>
+
+                    <span>
+                        Store successful repair
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+{% endblock %}

@@ -2,94 +2,168 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>
         {% block title %}
-        Self-Healing Developer Agent
+            Self-Healing Developer Agent
         {% endblock %}
     </title>
 
-    <!-- Main CSS -->
-    <link rel="stylesheet"
-          href="{% static 'css/style.css' %}">
-
+    <link
+        rel="stylesheet"
+        href="{% static 'css/style.css' %}"
+    >
 </head>
 
 <body>
 
+<div class="app-shell">
+
     <!-- =====================================================
-         Navigation Bar
+         SIDEBAR
          ===================================================== -->
 
-    <nav class="navbar">
+    <aside class="sidebar">
 
-        <div class="container navbar-inner">
+        <div class="brand">
 
-            <a href="/" class="logo">
-                🤖 Self-Healing Agent
+            <div class="brand-icon">
+                SH
+            </div>
+
+            <div>
+                <div class="brand-name">
+                    Self-Healing
+                </div>
+
+                <div class="brand-subtitle">
+                    Developer Agent
+                </div>
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="{% url 'project_create' %}"
+                class="nav-item"
+            >
+                <span class="nav-icon">+</span>
+                <span>New Project</span>
             </a>
 
-            <div class="nav-links">
+            <a
+                href="{% url 'project_create' %}"
+                class="nav-item"
+            >
+                <span class="nav-icon">⌂</span>
+                <span>Projects</span>
+            </a>
 
-                <a href="/new/">
-                    New Project
-                </a>
+        </nav>
+
+
+        <div class="sidebar-footer">
+
+            <div class="system-status">
+
+                <span class="status-dot status-online"></span>
+
+                <div>
+                    <strong>System Ready</strong>
+
+                    <small>
+                        Agent services available
+                    </small>
+                </div>
 
             </div>
 
         </div>
 
-    </nav>
+    </aside>
 
 
     <!-- =====================================================
-         Main Content
+         MAIN AREA
          ===================================================== -->
 
-    <main class="page-content">
+    <main class="main-content">
 
-        <div class="container">
+        <header class="topbar">
+
+            <div>
+
+                <div class="page-breadcrumb">
+                    Developer Intelligence
+                </div>
+
+                <h1>
+                    {% block page_title %}
+                        Dashboard
+                    {% endblock %}
+                </h1>
+
+            </div>
+
+
+            <div class="topbar-status">
+
+                <span class="status-dot status-online"></span>
+
+                <span>
+                    Agent Online
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <section class="content-area">
+
+            {% if messages %}
+
+                <div class="messages-container">
+
+                    {% for message in messages %}
+
+                        <div
+                            class="message message-{{ message.tags }}"
+                        >
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
 
             {% block content %}
             {% endblock %}
 
-        </div>
+        </section>
 
     </main>
 
-
-    <!-- =====================================================
-         Footer
-         ===================================================== -->
-
-    <footer class="footer">
-
-        <div class="container">
-
-            <p>
-                Self-Healing Developer Agent
-            </p>
-
-            <p>
-                AI-powered debugging, automated fixing and
-                test validation
-            </p>
-
-        </div>
-
-    </footer>
+</div>
 
 
-    <!-- Main JavaScript -->
-    <script src="{% static 'js/app.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
+
+{% block extra_js %}
+{% endblock %}
 
 </body>
-
 </html>
