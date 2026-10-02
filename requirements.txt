@@ -1,0 +1,8 @@
+Django==5.2.17
+langgraph
+langchain
+langchain-ollama
+GitPython
+pytest
+python-dotenv
+docker>=7.0,<8.0

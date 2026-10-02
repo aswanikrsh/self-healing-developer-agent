@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card">
+
+    <h1>Self-Healing Developer Agent</h1>
+
+    <h2>Add Project</h2>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">
+            Add Project
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

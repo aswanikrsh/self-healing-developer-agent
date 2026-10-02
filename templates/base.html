@@ -1,0 +1,95 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        Self-Healing Developer Agent
+        {% endblock %}
+    </title>
+
+    <!-- Main CSS -->
+    <link rel="stylesheet"
+          href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+    <!-- =====================================================
+         Navigation Bar
+         ===================================================== -->
+
+    <nav class="navbar">
+
+        <div class="container navbar-inner">
+
+            <a href="/" class="logo">
+                🤖 Self-Healing Agent
+            </a>
+
+            <div class="nav-links">
+
+                <a href="/new/">
+                    New Project
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================================
+         Main Content
+         ===================================================== -->
+
+    <main class="page-content">
+
+        <div class="container">
+
+            {% block content %}
+            {% endblock %}
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         Footer
+         ===================================================== -->
+
+    <footer class="footer">
+
+        <div class="container">
+
+            <p>
+                Self-Healing Developer Agent
+            </p>
+
+            <p>
+                AI-powered debugging, automated fixing and
+                test validation
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- Main JavaScript -->
+    <script src="{% static 'js/app.js' %}"></script>
+
+</body>
+
+</html>

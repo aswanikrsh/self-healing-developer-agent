@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card">
+
+    <h1>Self-Healing Report</h1>
+
+    <p>
+        <strong>Project:</strong>
+        {{ session.project.name }}
+    </p>
+
+    <p>
+        <strong>Status:</strong>
+        {{ session.status }}
+    </p>
+
+    <p>
+        <strong>Iterations:</strong>
+        {{ session.iterations }}
+    </p>
+
+    <h2>Root Cause</h2>
+
+    <pre>{{ session.root_cause }}</pre>
+
+    <h2>Fix</h2>
+
+    <pre>{{ session.proposed_fix }}</pre>
+
+    <h2>Test Output</h2>
+
+    <pre>{{ session.test_output }}</pre>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card">
+
+    <h1>Debug Project</h1>
+
+    <h2>{{ project.name }}</h2>
+
+    <p>
+        Project:
+        {{ project.project_path }}
+    </p>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">
+            Analyze Error
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}
