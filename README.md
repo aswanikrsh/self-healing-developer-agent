@@ -933,5 +933,4 @@ The project combines **LLM-based reasoning, agent orchestration, software testin
 
 **Aswanikrishna**
 
-Self-Healing Developer Agent
-Built with Python, Django, LangGraph, Ollama, ChromaDB, Pytest, Git, and Docker.
+
