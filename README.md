@@ -928,9 +928,3 @@ The goal of this project is to demonstrate how modern AI-agent architectures can
 The project combines **LLM-based reasoning, agent orchestration, software testing, code analysis, security validation, vector memory, Git operations, and sandboxed execution** into a single developer-focused system.
 
 ---
-
-# 👨‍💻 Author
-
-
-
-
