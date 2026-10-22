@@ -898,7 +898,6 @@ Possible future development includes:
 
 Current development phases:
 
-```text
 
 ---
 
