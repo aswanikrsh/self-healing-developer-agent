@@ -896,10 +896,7 @@ Possible future development includes:
 
 # 📌 Project Status
 
-Current development phases:
 
-
----
 
 # 🎯 Project Goal
 
